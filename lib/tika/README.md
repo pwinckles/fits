@@ -1,7 +1,6 @@
 # Tika jar acquisition steps
 
-The following steps can be used to generate the contents of this
-directory:
+The following steps can be used to generate the contents of this directory:
 
 ``` shell
 PATH_TO_FITS=
