@@ -272,16 +272,16 @@ public class MediaInfoUtil {
             String codecId = getMediaInfoString(ndx, "CodecID", MediaInfoNativeWrapper.StreamKind.Video);
             addDataToMap(videoTrackValuesMap, id, "codecId", codecId);
 
-            String codecCC = getMediaInfoString(ndx, "Codec/CC", MediaInfoNativeWrapper.StreamKind.Video);
+            String codecCC = getMediaInfoString(ndx, "CodecID", MediaInfoNativeWrapper.StreamKind.Video);
             if (codecCC != null) {
                 codecCC = codecCC.trim();
             }
             addDataToMap(videoTrackValuesMap, id, "codecCC", codecCC);
 
-            String codecName = getMediaInfoString(ndx, "Codec", MediaInfoNativeWrapper.StreamKind.Video);
+            String codecName = getMediaInfoString(ndx, "Format", MediaInfoNativeWrapper.StreamKind.Video);
             addDataToMap(videoTrackValuesMap, id, "codecName", codecName);
 
-            String codecVersion = getMediaInfoString(ndx, "Codec_Profile", MediaInfoNativeWrapper.StreamKind.Video);
+            String codecVersion = getMediaInfoString(ndx, "Format_Version", MediaInfoNativeWrapper.StreamKind.Video);
             addDataToMap(videoTrackValuesMap, id, "codecVersion", codecVersion);
 
             // By design - if the 4CC code is not one expected, then don't
@@ -300,7 +300,7 @@ public class MediaInfoUtil {
                 addDataToMap(videoTrackValuesMap, id, "codecFamily", codecFamily);
             }
 
-            String codecInfo = getMediaInfoString(ndx, "Codec/Info", MediaInfoNativeWrapper.StreamKind.Video);
+            String codecInfo = getMediaInfoString(ndx, "Format/Info", MediaInfoNativeWrapper.StreamKind.Video);
             addDataToMap(videoTrackValuesMap, id, "codecInfo", codecInfo);
 
             // NOTE:
@@ -384,12 +384,11 @@ public class MediaInfoUtil {
             String codecId = getMediaInfoString(ndx, "CodecID", MediaInfoNativeWrapper.StreamKind.Audio);
             addDataToMap(audioTrackValuesMap, id, "codecId", codecId);
 
-            String codecFamily = getMediaInfoString(ndx, "Codec/Family", MediaInfoNativeWrapper.StreamKind.Audio);
+            String codecFamily = getMediaInfoString(ndx, "Format", MediaInfoNativeWrapper.StreamKind.Audio);
             addDataToMap(audioTrackValuesMap, id, "codecFamily", codecFamily);
 
-            // String codecInfo = getMediaInfoString(ndx, "Codec/Info",
-            //		MediaInfoNativeWrapper.StreamKind.Audio);
-            // addDataToMap(audioTrackValuesMap, id, "codecInfo", codecInfo);
+            String codecInfo = getMediaInfoString(ndx, "Format/Info", MediaInfoNativeWrapper.StreamKind.Audio);
+            addDataToMap(audioTrackValuesMap, id, "codecInfo", codecInfo);
         }
 
         return audioTrackValuesMap;

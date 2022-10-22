@@ -28,6 +28,9 @@
       <track type="video" id="1" toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">
         <videoDataEncoding>m2v1</videoDataEncoding>
         <codecId>m2v1</codecId>
+        <codecCC>m2v1</codecCC>
+        <codecVersion>Version 2</codecVersion>
+        <codecName>MPEG Video</codecName>
         <codecFamily>MPEG-2</codecFamily>
         <compression>Lossy</compression>
         <byteOrder>Unknown</byteOrder>
@@ -52,6 +55,7 @@
       <track type="audio" id="2" toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">
         <audioDataEncoding>.mp2</audioDataEncoding>
         <codecId>.mp2</codecId>
+        <codecFamily>.mp2</codecFamily>
         <compression>none</compression>
         <bitRate>224000</bitRate>
         <bitRateMode>Constant</bitRateMode>
@@ -75,6 +79,14 @@
                   <ebucore:factorDenominator>3</ebucore:factorDenominator>
                 </ebucore:aspectRatio>
                 <ebucore:videoEncoding typeLabel="m2v1" />
+                <ebucore:codec>
+                  <ebucore:codecIdentifier>
+                    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">m2v1</dc:identifier>
+                  </ebucore:codecIdentifier>
+                  <ebucore:name>MPEG Video</ebucore:name>
+                  <ebucore:version>Version 2</ebucore:version>
+                  <ebucore:family>MPEG-2</ebucore:family>
+                </ebucore:codec>
                 <ebucore:bitRate>2153111</ebucore:bitRate>
                 <ebucore:bitRateMode>variable</ebucore:bitRateMode>
                 <ebucore:scanningFormat>interlaced</ebucore:scanningFormat>
