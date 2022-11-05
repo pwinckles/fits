@@ -10,6 +10,7 @@
 /tools/exiftool
 /lib/tika
 /lib/droid
+/lib/jhove
 
 # Directory created by fits-blackbox-tester
 .bb-testing/
