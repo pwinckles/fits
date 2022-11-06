@@ -37,9 +37,10 @@ import java.util.Properties;
 public class ToolInstaller {
 
     public enum Tool {
-        EXIFTOOL("exiftool", "exiftool", "perl", "perl", "windows"),
-        MEDIA_INFO("mediainfo", "mediainfo", "linux", "mac", "windows/64"),
-        FILE("file", "file_utility_windows", null, null, "");
+        EXIFTOOL("exiftool", "tools/exiftool", "perl", "perl", "windows"),
+        MEDIA_INFO("mediainfo", "tools/mediainfo", "linux", "mac", "windows/64"),
+        FILE("file", "tools/file_utility_windows", null, null, ""),
+        NZMETOOL("nzmetool", "lib/nzmetool", null, null, null);
 
         private final String name;
         private final String toolDir;
@@ -74,7 +75,6 @@ public class ToolInstaller {
     }
 
     private static final Path ROOT = Paths.get("");
-    private static final Path TOOLS_ROOT = ROOT.resolve("tools");
     private static final Path PROPS_FILE = ROOT.resolve("tools.properties");
 
     private static final String VERSION_FILE_NAME = "version";
@@ -94,7 +94,7 @@ public class ToolInstaller {
         try (var is = Files.newInputStream(PROPS_FILE)) {
             props.load(is);
         }
-        new ToolInstaller(tool, props).execute();
+        new ToolInstaller(tool, ROOT.resolve(tool.toolDir), props).execute();
     }
 
     private final Tool tool;
@@ -102,10 +102,10 @@ public class ToolInstaller {
     private final Path toolDir;
     private final HttpClient httpClient;
 
-    public ToolInstaller(Tool tool, Properties props) {
+    public ToolInstaller(Tool tool, Path toolDir, Properties props) {
         this.tool = tool;
         this.props = props;
-        this.toolDir = TOOLS_ROOT.resolve(tool.toolDir);
+        this.toolDir = toolDir;
         this.httpClient = HttpClient.newBuilder()
                 .followRedirects(HttpClient.Redirect.NORMAL)
                 .build();
@@ -133,6 +133,9 @@ public class ToolInstaller {
                 break;
             case FILE:
                 installFileUtility();
+                break;
+            case NZMETOOL:
+                installNzmeTool();
                 break;
             default:
                 throw new UnsupportedOperationException("Unsupported tool: " + tool);
@@ -262,6 +265,27 @@ public class ToolInstaller {
         // Install deps
         archive = downloadAndVerify(WINDOWS + "deps.");
         extractZip(archive, target);
+        Files.deleteIfExists(archive);
+    }
+
+    private void installNzmeTool() throws IOException {
+        var archive = downloadAndVerify("");
+        extractZip(archive, toolDir);
+
+        var extracted = toolDir.resolve("metadata-extractor");
+        Files.move(extracted.resolve("adapters"), toolDir.resolve("adapters"));
+
+        try (var files = Files.list(extracted.resolve("lib"))) {
+            files.forEach(file -> {
+                try {
+                    Files.move(file, toolDir.resolve(file.getFileName()));
+                } catch (IOException e) {
+                    throw new UncheckedIOException(e);
+                }
+            });
+        }
+
+        deleteDir(extracted);
         Files.deleteIfExists(archive);
     }
 
