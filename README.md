@@ -164,8 +164,8 @@ Some of the tools that FITS uses are not bundled in the source tree, and are pul
 are downloaded as part of the normal build process, but can also be installed directly using `mvn generate-resources`.
 Each tool that's installed has a pom file in the `tool-poms` directory that defines how it's installed.
 
-Exiftool and MediaInfo are installed using the script at `src/main/script/ToolInstaller` and are configured using the
-properties file `tools.properties`.
+Exiftool, MediaInfo, and the Windows file utility are installed using the script at `src/main/script/ToolInstaller`,
+and are configured using the properties file `tools.properties`.
 
 Tika and JHOVE are installed exclusive through their pom files `tika-pom.xml` and `jhove-pom.xml` respectively. 
 
