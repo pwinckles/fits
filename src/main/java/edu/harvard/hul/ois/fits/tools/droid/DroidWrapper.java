@@ -20,6 +20,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang.StringUtils;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultImpl;
 import uk.gov.nationalarchives.droid.core.interfaces.RequestIdentifier;
@@ -129,14 +130,16 @@ class DroidWrapper {
      * @param result the result to modify
      */
     private void augmentContainerResults(IdentificationResultCollection result) {
-        result.getResults().stream().filter(r -> r.getMimeType() == null).forEach(r -> {
-            var format = puidFormatMap.get(r.getPuid());
-            if (format != null) {
-                var ri = (IdentificationResultImpl) r;
-                ri.setName(format.getName());
-                ri.setMimeType(format.getMimeType());
-                ri.setVersion(format.getVersion());
-            }
-        });
+        result.getResults().stream()
+                .filter(r -> StringUtils.isEmpty(r.getMimeType()))
+                .forEach(r -> {
+                    var format = puidFormatMap.get(r.getPuid());
+                    if (format != null) {
+                        var ri = (IdentificationResultImpl) r;
+                        ri.setName(format.getName());
+                        ri.setMimeType(format.getMimeType());
+                        ri.setVersion(format.getVersion());
+                    }
+                });
     }
 }

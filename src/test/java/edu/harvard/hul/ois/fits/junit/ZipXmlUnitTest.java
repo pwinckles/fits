@@ -30,6 +30,11 @@ import org.junit.Test;
 public class ZipXmlUnitTest extends AbstractXmlUnitTest {
 
     @Test
+    public void test7zFile() throws Exception {
+        testFile("test.7z", fits, OutputType.DEFAULT);
+    }
+
+    @Test
     public void testUncompressedZipFile() throws Exception {
         testFile("32044020597662.zip", fits, OutputType.DEFAULT);
     }
